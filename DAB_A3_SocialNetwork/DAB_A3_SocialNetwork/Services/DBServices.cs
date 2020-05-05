@@ -40,5 +40,11 @@ namespace DAB_A3_SocialNetwork.Services
         public List<Posts> GetPosts() => _posts.Find(posts => true).ToList();
 
         public List<Posts> GetMyPosts(string id) => _posts.Find(posts => posts.Poster_Id == id).ToList();
+
+        public Posts CreatePost(Posts post)
+        {
+            _posts.InsertOne(post);
+            return post;
+        }
     }
 }
