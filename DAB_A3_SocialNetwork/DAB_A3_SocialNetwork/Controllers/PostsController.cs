@@ -20,7 +20,18 @@ namespace DAB_A3_SocialNetwork.Controllers
             _databaseServices = databaseServices;
         }
 
+        //see All posts available
         [HttpGet]
         public ActionResult<List<Posts>> Get() => _databaseServices.GetPosts();
+
+        //Creates a new post
+        [HttpPost]
+        public ActionResult<Posts> Create(Posts post)
+        {
+            _databaseServices.CreatePost(post);
+
+            return CreatedAtRoute("GetUser", new { id = post.Id.ToString() }, post);
+        }
+
     }
 }

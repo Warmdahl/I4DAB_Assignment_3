@@ -25,6 +25,8 @@ namespace DAB_A3_SocialNetwork.Controllers
         {
             public Users user;
             public List<Posts> userposts;
+            public List<Posts> circleposts;
+            public List<Posts> followingposts;
         }
 
         //Shows the users in the database
@@ -38,6 +40,7 @@ namespace DAB_A3_SocialNetwork.Controllers
         {
             var user = _databaseServices.GetUsers(id);
             var posts = _databaseServices.GetMyPosts(id);
+            var circleposts = _databaseServices.GetCirclePosts()
 
             if (user == null || posts == null)
             {

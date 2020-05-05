@@ -9,6 +9,7 @@ namespace DAB_A3_SocialNetwork.Models
     {
         public string UsersCollectionName { get; set; }
         public string PostsCollectionName { get; set; }
+        public string CirclesCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
     }
@@ -17,6 +18,7 @@ namespace DAB_A3_SocialNetwork.Models
     {
         string UsersCollectionName { get; set; }
         string PostsCollectionName { get; set; }
+        string CirclesCollectionName { get; set; }
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }
     }

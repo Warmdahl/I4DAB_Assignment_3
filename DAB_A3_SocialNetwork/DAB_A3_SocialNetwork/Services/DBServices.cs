@@ -11,6 +11,7 @@ namespace DAB_A3_SocialNetwork.Services
     {
         private readonly IMongoCollection<Users> _users;
         private readonly IMongoCollection<Posts> _posts;
+        private readonly IMongoCollection<Circles> _circles;
 
         public DatabaseServices(ISocialNetworkDBSettings settings)
         {
@@ -19,6 +20,7 @@ namespace DAB_A3_SocialNetwork.Services
 
             _users = database.GetCollection<Users>(settings.UsersCollectionName);
             _posts = database.GetCollection<Posts>(settings.PostsCollectionName);
+            _circles = database.GetCollection<Circles>(settings.CirclesCollectionName);
         }
 
 
@@ -41,10 +43,25 @@ namespace DAB_A3_SocialNetwork.Services
 
         public List<Posts> GetMyPosts(string id) => _posts.Find(posts => posts.Poster_Id == id).ToList();
 
+        public List<Posts> GetCirclePosts(string id) => _posts.Find(posts => posts.Circle_Id == id).ToList();
+
         public Posts CreatePost(Posts post)
         {
             _posts.InsertOne(post);
             return post;
         }
+
+        //Functions for Circles
+        public List<Circles> GetCircles() => _circles.Find(circles => true).ToList();
+
+        public Circles GetCircle(string id) => _circles.Find<Circles>(circles => circles.Id == id).FirstOrDefault();
+
+        public Circles CreateCircle(Circles circle)
+        {
+            _circles.InsertOne(circle);
+            return circle;
+        }
+
+
     }
 }
