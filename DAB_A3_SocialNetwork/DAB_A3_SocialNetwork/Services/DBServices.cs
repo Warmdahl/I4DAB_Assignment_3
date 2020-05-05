@@ -35,5 +35,7 @@ namespace DAB_A3_SocialNetwork.Services
 
         //Functions for posts
         public List<Posts> GetPosts() => _posts.Find(posts => true).ToList();
+
+        public List<Posts> GetMyPosts(string id) => _posts.Find(posts => posts.Poster_Id == id).ToList();
     }
 }

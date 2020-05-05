@@ -24,16 +24,18 @@ namespace DAB_A3_SocialNetwork.Controllers
         public ActionResult<List<Users>> Get() => _databaseServices.GetUsers();
 
         [HttpGet("{id:length(24)}", Name = "GetUser")]
-        public ActionResult<Users> Get(string id)
+        [ActionName("Getmyfeed")]
+        public ActionResult<List<Posts>> Get(string id)
         {
             var user = _databaseServices.GetUsers(id);
+            var posts = _databaseServices.GetMyPosts(id);
 
-            if (user == null)
+            if (user == null || posts == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return posts;
         }
 
         [HttpPost]
@@ -43,5 +45,22 @@ namespace DAB_A3_SocialNetwork.Controllers
 
             return CreatedAtRoute("GetUser", new {id = users.Id.ToString()}, users);
         }
+
+        //Get where you visit someone else
+        //Own id first, visit id second
+        [HttpGet("{ownid:length(24)}/{visitid:length(24)}", Name = "GetUserVisit")]
+        public ActionResult<Users> Get(string ownid, string visitid)
+        {
+            var own = _databaseServices.GetUsers(ownid);
+            var visit = _databaseServices.GetUsers(visitid);
+
+            if (own == null || visit == null)
+            {
+                return NotFound();
+            }
+
+            return visit;
+        }
+
     }
 }
