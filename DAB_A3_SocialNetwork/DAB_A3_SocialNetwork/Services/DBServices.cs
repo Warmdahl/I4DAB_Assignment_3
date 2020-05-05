@@ -12,6 +12,8 @@ namespace DAB_A3_SocialNetwork.Services
         private readonly IMongoCollection<Users> _users;
         private readonly IMongoCollection<Posts> _posts;
         private readonly IMongoCollection<Circles> _circles;
+        private readonly IMongoCollection<Followlist> _followlist;
+        private readonly IMongoCollection<Blacklist> _blacklist;
 
         public DatabaseServices(ISocialNetworkDBSettings settings)
         {
@@ -21,6 +23,8 @@ namespace DAB_A3_SocialNetwork.Services
             _users = database.GetCollection<Users>(settings.UsersCollectionName);
             _posts = database.GetCollection<Posts>(settings.PostsCollectionName);
             _circles = database.GetCollection<Circles>(settings.CirclesCollectionName);
+            _followlist = database.GetCollection<Followlist>(settings.FollowlistCollectionName);
+            _blacklist = database.GetCollection<Blacklist>(settings.BlacklistCollectionName);
         }
 
 
@@ -56,12 +60,18 @@ namespace DAB_A3_SocialNetwork.Services
 
         public Circles GetCircle(string id) => _circles.Find<Circles>(circles => circles.Id == id).FirstOrDefault();
 
+        public List<Circles> GetCircleUserIsIn(string id) => _circles.Find<Circles>(circles => circles.UserIds.Contains(id)).ToList();
+
         public Circles CreateCircle(Circles circle)
         {
             _circles.InsertOne(circle);
             return circle;
         }
 
+        //Functions for Followlist
+
+
+        //Functions for Blacklist
 
     }
 }

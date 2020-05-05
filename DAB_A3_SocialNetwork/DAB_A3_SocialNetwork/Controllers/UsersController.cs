@@ -25,6 +25,7 @@ namespace DAB_A3_SocialNetwork.Controllers
         {
             public Users user;
             public List<Posts> userposts;
+            public List<Circles> circles;
             public List<Posts> circleposts;
             public List<Posts> followingposts;
         }
@@ -38,20 +39,28 @@ namespace DAB_A3_SocialNetwork.Controllers
         [ActionName("Getmyfeed")]
         public ActionResult<object> Get(string id)
         {
-            var user = _databaseServices.GetUsers(id);
-            var posts = _databaseServices.GetMyPosts(id);
-            var circleposts = _databaseServices.GetCirclePosts()
+            var user = _databaseServices.GetUsers(id);                          //Finder user information
+            var posts = _databaseServices.GetMyPosts(id);                  //Finder post skrevet af denne user
+            var circles = _databaseServices.GetCircleUserIsIn(id);        //Finder de circles user er med i
+            
+            var circleposts = new List<Posts>();                                    //Finder de posts som er skrevet i de circles user er med i
+            foreach (var circle in circles)
+            {
+                circleposts = _databaseServices.GetCirclePosts(circle.Id);
+            }
 
-            if (user == null || posts == null)
+            if (user == null || posts == null)                                      //Checker om user findes hvis ikke sendes 404
             {
                 return NotFound();
             }
 
-            Userfeed userfeed = new Userfeed();
+            Userfeed userfeed = new Userfeed();                                     //Struct som indeholder alt information som vises på siden.
             userfeed.user = user;
             userfeed.userposts = posts;
+            userfeed.circles = circles;
+            userfeed.circleposts = circleposts;
 
-            return userfeed;
+            return userfeed;                    
         }
 
         //Creates a new user
