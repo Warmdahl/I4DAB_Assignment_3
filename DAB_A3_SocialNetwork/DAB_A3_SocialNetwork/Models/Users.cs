@@ -17,7 +17,7 @@ namespace DAB_A3_SocialNetwork.Models
         public string UserName { get; set; }
         public string Age { get; set; }
 
-        public Followlist followerslist { get; set; }
-        public Blacklist blacklist { get; set; }
+        //public Followlist followerslist { get; set; }
+        //public Blacklist blacklist { get; set; }
     }
 }

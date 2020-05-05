@@ -23,7 +23,7 @@ namespace DAB_A3_SocialNetwork.Services
             _users = database.GetCollection<Users>(settings.UsersCollectionName);
             _posts = database.GetCollection<Posts>(settings.PostsCollectionName);
             _circles = database.GetCollection<Circles>(settings.CirclesCollectionName);
-            _followlist = database.GetCollection<Followlist>(settings.FollowlistCollectionName);
+            _followlist = database.GetCollection<Followlist>(settings.FollowlistCollectionName);        
             _blacklist = database.GetCollection<Blacklist>(settings.BlacklistCollectionName);
         }
 
@@ -39,7 +39,9 @@ namespace DAB_A3_SocialNetwork.Services
             return users;
         }
 
-        public void DeleteUser(Users User) => _users.DeleteOne(users => users.Id == User.Id);
+        public void DeleteUser(Users user) => _users.DeleteOne(users => users.Id == user.Id);
+
+        public void UpdateUser(string id, Users newuser) => _users.ReplaceOne(users => users.Id == id, newuser);
         
 
         //Functions for posts
@@ -55,6 +57,10 @@ namespace DAB_A3_SocialNetwork.Services
             return post;
         }
 
+        public void UpdatePost(string id, Posts post) => _posts.ReplaceOne(post => post.Id == id, post);
+
+
+
         //Functions for Circles
         public List<Circles> GetCircles() => _circles.Find(circles => true).ToList();
 
@@ -68,10 +74,26 @@ namespace DAB_A3_SocialNetwork.Services
             return circle;
         }
 
+        public void UpdateCircle(string id, Circles circle) => _circles.ReplaceOne(circle => circle.Id == id, circle);
+
         //Functions for Followlist
+        public Followlist GetUserFollowlists(string id) => _followlist.Find<Followlist>(Followlist => Followlist.FLOwnerID == id).FirstOrDefault(); 
+
+        public Followlist CreateFollowlist(Followlist followlist)
+        {
+            _followlist.InsertOne(followlist);
+            return followlist;
+        }
 
 
         //Functions for Blacklist
+        public Blacklist GetUserBlacklist(string id) => _blacklist.Find<Blacklist>(blacklist => blacklist.BLOwnerID == id).FirstOrDefault();
+
+        public Blacklist CreateBlacklist(Blacklist blacklist)
+        {
+            _blacklist.InsertOne(blacklist);
+            return blacklist;
+        }
 
     }
 }

@@ -41,13 +41,20 @@ namespace DAB_A3_SocialNetwork.Controllers
         {
             var user = _databaseServices.GetUsers(id);                          //Finder user information
             var posts = _databaseServices.GetMyPosts(id);                  //Finder post skrevet af denne user
-            var circles = _databaseServices.GetCircleUserIsIn(id);        //Finder de circles user er med i
             
+            var circles = _databaseServices.GetCircleUserIsIn(id);        //Finder de circles user er med i
             var circleposts = new List<Posts>();                                    //Finder de posts som er skrevet i de circles user er med i
             foreach (var circle in circles)
             {
                 circleposts = _databaseServices.GetCirclePosts(circle.Id);
             }
+
+            //var following = user.followerslist;
+            //var followingsposts = new List<Posts>();
+            //foreach (var follow in following.followingIDs)
+            //{
+            //    followingsposts = _databaseServices.GetMyPosts(follow);
+            //}
 
             if (user == null || posts == null)                                      //Checker om user findes hvis ikke sendes 404
             {
@@ -59,6 +66,7 @@ namespace DAB_A3_SocialNetwork.Controllers
             userfeed.userposts = posts;
             userfeed.circles = circles;
             userfeed.circleposts = circleposts;
+            //userfeed.followingposts = followingsposts;
 
             return userfeed;                    
         }
@@ -84,6 +92,22 @@ namespace DAB_A3_SocialNetwork.Controllers
             }
 
             _databaseServices.DeleteUser(user);
+
+            return NoContent();
+        }
+
+        //Update a user
+        [HttpPut("{id:length(24)}")]
+        public IActionResult Update(string id, Users newuser)
+        {
+            var olduser = _databaseServices.GetUsers(id);
+
+            if (olduser == null)
+            {
+                return NotFound();
+            }
+
+            _databaseServices.UpdateUser(id, newuser);
 
             return NoContent();
         }
