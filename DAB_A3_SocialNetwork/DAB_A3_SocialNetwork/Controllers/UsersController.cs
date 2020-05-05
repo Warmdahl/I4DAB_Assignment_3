@@ -6,6 +6,7 @@ using DAB_A3_SocialNetwork.Models;
 using DAB_A3_SocialNetwork.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace DAB_A3_SocialNetwork.Controllers
 {
@@ -20,12 +21,20 @@ namespace DAB_A3_SocialNetwork.Controllers
             _databaseServices = databaseServices;
         }
 
+        struct Userfeed
+        {
+            public Users user;
+            public List<Posts> userposts;
+        }
+
+        //Shows the users in the database
         [HttpGet]
         public ActionResult<List<Users>> Get() => _databaseServices.GetUsers();
 
-        [HttpGet("{id:length(24)}", Name = "GetUser")]
+        //Shows a specific user and their own posts (for now)
+        [HttpGet("{id:length(24)}", Name = "GetUserFeed")]
         [ActionName("Getmyfeed")]
-        public ActionResult<List<Posts>> Get(string id)
+        public ActionResult<object> Get(string id)
         {
             var user = _databaseServices.GetUsers(id);
             var posts = _databaseServices.GetMyPosts(id);
@@ -35,15 +44,36 @@ namespace DAB_A3_SocialNetwork.Controllers
                 return NotFound();
             }
 
-            return posts;
+            Userfeed userfeed = new Userfeed();
+            userfeed.user = user;
+            userfeed.userposts = posts;
+
+            return userfeed;
         }
 
+        //Creates a new user
         [HttpPost]
         public ActionResult<Users> Create(Users users)
         {
             _databaseServices.CreateUser(users);
 
             return CreatedAtRoute("GetUser", new {id = users.Id.ToString()}, users);
+        }
+
+        //Deletes a user
+        [HttpDelete("{id:length(24)}")]
+        public IActionResult Delete(string id)
+        {
+            var user = _databaseServices.GetUsers(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _databaseServices.DeleteUser(user);
+
+            return NoContent();
         }
 
         //Get where you visit someone else

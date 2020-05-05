@@ -33,6 +33,9 @@ namespace DAB_A3_SocialNetwork.Services
             return users;
         }
 
+        public void DeleteUser(Users User) => _users.DeleteOne(users => users.Id == User.Id);
+        
+
         //Functions for posts
         public List<Posts> GetPosts() => _posts.Find(posts => true).ToList();
 
