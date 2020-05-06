@@ -38,11 +38,7 @@ namespace DAB_A3_SocialNetwork.Controllers
 
             if (users == null) //Seeder data til database
             {
-                SeedingUsers();
-                SeedingCircles();
-                SeedingPosts();
-                SeedingFollowlist();
-                SeedingComment();
+                TherulingSeed();
             }
 
             return users;
@@ -204,6 +200,16 @@ namespace DAB_A3_SocialNetwork.Controllers
 
 
         //One seed to rule them all
+        public void TherulingSeed()
+        {
+            SeedingUsers();
+            SeedingCircles();
+            SeedingPosts();
+            SeedingFollowlist();
+            SeedingComment();
+        }
+
+
         public void SeedingUsers()
         {
             //A bunch of users
