@@ -238,7 +238,7 @@ namespace DAB_A3_SocialNetwork.Controllers
             //A Bunch of circles
             Circles c1 = new Circles();
             c1.circleName = "Thebois";
-            c1.UserIds
+            c1.UserIds = [];
         }
 
         public void SeedingPosts()
