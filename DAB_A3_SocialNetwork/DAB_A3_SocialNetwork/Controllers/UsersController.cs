@@ -32,7 +32,17 @@ namespace DAB_A3_SocialNetwork.Controllers
 
         //Shows the users in the database
         [HttpGet]
-        public ActionResult<List<Users>> Get() => _databaseServices.GetUsers();
+        public ActionResult<object> Get()
+        {
+            var users =_databaseServices.GetUsers();
+
+            if (users == null)                                          //
+            {
+
+            }
+
+            return users;
+        }
 
         //Shows a specific user and their own posts (for now)
         [HttpGet("{id:length(24)}", Name = "GetUserFeed")]
@@ -136,15 +146,24 @@ namespace DAB_A3_SocialNetwork.Controllers
         [HttpGet("{ownid:length(24)}/{visitid:length(24)}", Name = "GetUserVisit")]
         public ActionResult<object> Get(string ownid, string visitid)
         {
-            var own = _databaseServices.GetUsers(ownid);
-            var visit = _databaseServices.GetUsers(visitid);
+            var own = _databaseServices.GetUsers(ownid);                                    //Id på den user som tilgår en anden user
+            var visit = _databaseServices.GetUsers(visitid);                                //Id på den user som bliver tilgået
 
-            if (own == null || visit == null)
+            if (own == null || visit == null)                                                   //Hvis en af de to users ikke findes, sendes 404
             {
                 return NotFound();
             }
 
-            var posts = _databaseServices.GetMyPosts(visitid);                          //Finder post skrevet af denne user
+            var publicposts = new List<Posts>();
+            var posts = _databaseServices.GetMyPosts(visitid);                          //Finder post skrevet af denne user og sikre us at de er public
+            foreach (var post in posts)
+            {
+                if (post.ispublic == true)
+                {
+                    publicposts.Add(post);
+                }
+
+            }
 
             var comcircles = new List<Circles>();
             var owncircles = _databaseServices.GetCircleUserIsIn(ownid);            //Finder de circles user er med i
@@ -171,7 +190,7 @@ namespace DAB_A3_SocialNetwork.Controllers
 
             VisitedFeed visitedFeed = new VisitedFeed();                                     //Struct som indeholder alt information som vises på siden.
             visitedFeed.user = visit;
-            visitedFeed.userposts = posts;
+            visitedFeed.userposts = publicposts;
             visitedFeed.circles = comcircles;
             visitedFeed.circleposts = circleposts;
 
