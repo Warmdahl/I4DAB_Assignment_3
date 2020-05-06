@@ -38,11 +38,7 @@ namespace DAB_A3_SocialNetwork.Controllers
 
             if (users == null) //Seeder data til database
             {
-                SeedingUsers();
-                SeedingCircles();
-                SeedingPosts();
-                SeedingFollowlist();
-                SeedingComment();
+                TherulingSeed();
             }
 
             return users;
@@ -204,7 +200,17 @@ namespace DAB_A3_SocialNetwork.Controllers
 
 
         //One seed to rule them all
-        public void SeedingUsers()
+        public void TherulingSeed()
+        {
+            SeedingUsers();
+            SeedingCircles();
+            SeedingPosts();
+            SeedingFollowlist();
+            SeedingComment();
+        }
+
+
+        public object SeedingUsers()
         {
             //A bunch of users
             Users u1 = new Users();
@@ -232,6 +238,9 @@ namespace DAB_A3_SocialNetwork.Controllers
             _databaseServices.CreateUser(u3);
             _databaseServices.CreateUser(u4);
             _databaseServices.CreateUser(u5);
+
+
+            return CreatedAtRoute("GetUser", new { id = u1.Id.ToString() }, u1);
         }
 
         public void SeedingCircles()
@@ -265,7 +274,7 @@ namespace DAB_A3_SocialNetwork.Controllers
             _databaseServices.CreateCircle(c3);
         }
 
-        public void SeedingPosts()
+        public object SeedingPosts()
         {
             var users = _databaseServices.GetUsers();
             var circles = _databaseServices.GetCircles();
@@ -326,6 +335,8 @@ namespace DAB_A3_SocialNetwork.Controllers
             _databaseServices.CreatePost(p5);
             _databaseServices.CreatePost(p6);
             _databaseServices.CreatePost(p7);
+
+            return CreatedAtRoute("GetUser", new { id = p1.Id.ToString() }, p1);
         }
 
         public void SeedingFollowlist()
