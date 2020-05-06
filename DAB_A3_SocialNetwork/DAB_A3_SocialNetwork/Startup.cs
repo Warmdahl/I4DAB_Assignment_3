@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DAB_A3_SocialNetwork.Controllers;
 using DAB_A3_SocialNetwork.Models;
 using DAB_A3_SocialNetwork.Services;
 using Microsoft.AspNetCore.Builder;
