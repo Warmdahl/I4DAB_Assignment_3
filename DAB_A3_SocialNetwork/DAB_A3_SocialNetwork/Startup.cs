@@ -14,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using DAB_A3_SocialNetwork
+using DAB_A3_SocialNetwork;
 using DAB_A3_SocialNetwork.Controllers;
 
 namespace DAB_A3_SocialNetwork
