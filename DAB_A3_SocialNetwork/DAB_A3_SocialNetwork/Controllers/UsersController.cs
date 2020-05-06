@@ -315,12 +315,12 @@ namespace DAB_A3_SocialNetwork.Controllers
             Followlist f4 = new Followlist();
             f4.FLOwnerID = users[4].Id;
 
-            f3.followingIDs.Add(users[4].Id);
-            f3.followingIDs.Add(users[5].Id);
-            f3.followingIDs.Add(users[1].Id);
+            f4.followingIDs.Add(users[4].Id);
+            f4.followingIDs.Add(users[5].Id);
+            f4.followingIDs.Add(users[1].Id);
 
             Followlist f5 = new Followlist();
-            f4.FLOwnerID = users[5].Id;
+            f5.FLOwnerID = users[5].Id;
 
             f5.followingIDs.Add(users[2].Id);
             f5.followingIDs.Add(users[3].Id);
