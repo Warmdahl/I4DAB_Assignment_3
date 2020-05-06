@@ -13,9 +13,9 @@ namespace DAB_A3_SocialNetwork.Controllers
     public class seedData
     {
 
-        private static readonly DatabaseServices _databaseServices;
+        private readonly DatabaseServices _databaseServices;
 
-        public static void SeedingUsers()
+        public void SeedingUsers()
         {
             //A bunch of users
             Users u1 = new Users();
@@ -45,7 +45,7 @@ namespace DAB_A3_SocialNetwork.Controllers
             _databaseServices.CreateUser(u5);
         }
 
-        public  static void SeedingCircles()
+        public void SeedingCircles()
         {
             var users = _databaseServices.GetUsers();
 
@@ -76,7 +76,7 @@ namespace DAB_A3_SocialNetwork.Controllers
             _databaseServices.CreateCircle(c3);
         }
 
-        public static void SeedingPosts()
+        public void SeedingPosts()
         {
             var users = _databaseServices.GetUsers();
             var circles = _databaseServices.GetCircles();
@@ -139,7 +139,7 @@ namespace DAB_A3_SocialNetwork.Controllers
             _databaseServices.CreatePost(p7);
         }
 
-        public static void SeedingFollowlist()
+        public void SeedingFollowlist()
         {
             var users = _databaseServices.GetUsers();
 
@@ -187,7 +187,7 @@ namespace DAB_A3_SocialNetwork.Controllers
             _databaseServices.CreateFollowlist(f5);
         }
 
-        public static void SeedingComment()
+        public void SeedingComment()
         {
             var users = _databaseServices.GetUsers();
             var post = _databaseServices.GetPosts();
