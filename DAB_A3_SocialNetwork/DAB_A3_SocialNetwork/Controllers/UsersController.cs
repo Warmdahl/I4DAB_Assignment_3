@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DAB_A3_SocialNetwork.Models;
+using DAB_A3_SocialNetwork.SeedData;
 using DAB_A3_SocialNetwork.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,9 +37,9 @@ namespace DAB_A3_SocialNetwork.Controllers
         {
             var users =_databaseServices.GetUsers();
 
-            if (users == null)                                          //
+            if (users == null) //Seeder data til database
             {
-
+                SeedingUsers();
             }
 
             return users;
@@ -195,6 +196,64 @@ namespace DAB_A3_SocialNetwork.Controllers
             visitedFeed.circleposts = circleposts;
 
             return visitedFeed;
+        }
+
+
+
+        //One seed to rule them all
+        public void SeedingUsers()
+        {
+            //A bunch of users
+            Users u1 = new Users();
+            u1.UserName = "Johnny Bravo";
+            u1.Age = "24";
+
+            Users u2 = new Users();
+            u2.UserName = "Steve Steve";
+            u2.Age = "2";
+
+            Users u3 = new Users();
+            u3.UserName = "Frans Goldengun";
+            u3.Age = "27";
+
+            Users u4 = new Users();
+            u4.UserName = "Mads Tolstrup";
+            u4.Age = "68";
+
+            Users u5 = new Users();
+            u5.UserName = "Preben Hansen";
+            u5.Age = "26";
+
+            _databaseServices.CreateUser(u1);
+            _databaseServices.CreateUser(u2);
+            _databaseServices.CreateUser(u3);
+            _databaseServices.CreateUser(u4);
+            _databaseServices.CreateUser(u5);
+        }
+
+        public void SeedingCircles()
+        {
+            var users = _databaseServices.GetUsers();
+
+            //A Bunch of circles
+            Circles c1 = new Circles();
+            c1.circleName = "Thebois";
+            c1.UserIds
+        }
+
+        public void SeedingPosts()
+        {
+
+        }
+
+        public void SeedingFollowlist()
+        {
+
+        }
+
+        public void SeedingComment()
+        {
+
         }
 
     }

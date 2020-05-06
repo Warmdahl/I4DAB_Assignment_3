@@ -110,5 +110,8 @@ namespace DAB_A3_SocialNetwork.Services
             return comment;
         }
 
+
+
+        //Seed data for database:
     }
 }
