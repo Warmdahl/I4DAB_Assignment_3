@@ -46,15 +46,25 @@ namespace DAB_A3_SocialNetwork.Controllers
             var circleposts = new List<Posts>();                                    //Finder de posts som er skrevet i de circles user er med i
             foreach (var circle in circles)
             {
-                circleposts = _databaseServices.GetCirclePosts(circle.Id);
+                var tempId = circle.Id;
+                var tempcircleposts = _databaseServices.GetCirclePosts(tempId);
+                foreach (var p in tempcircleposts)
+                {
+                    circleposts.Add(p);
+                }
             }
 
-            //var following = user.followerslist;
-            //var followingsposts = new List<Posts>();
-            //foreach (var follow in following.followingIDs)
-            //{
-            //    followingsposts = _databaseServices.GetMyPosts(follow);
-            //}
+            var followlist = _databaseServices.GetUserFollowlists(id);              //Finder alle posts lavede af users som user følger
+            List<Posts> FLposts = new List<Posts>();
+            foreach (var FLids in followlist.followingIDs)
+            {
+                var ID = FLids;                                               //Laver en liste med alle posts fra alle på followlisten
+                var UsersPosts = _databaseServices.GetMyPosts(ID);
+                foreach (var p in UsersPosts)
+                {
+                    FLposts.Add(p);
+                }
+            }
 
             if (user == null || posts == null)                                      //Checker om user findes hvis ikke sendes 404
             {
@@ -66,7 +76,7 @@ namespace DAB_A3_SocialNetwork.Controllers
             userfeed.userposts = posts;
             userfeed.circles = circles;
             userfeed.circleposts = circleposts;
-            //userfeed.followingposts = followingsposts;
+            userfeed.followingposts = FLposts;
 
             return userfeed;                    
         }
@@ -112,10 +122,19 @@ namespace DAB_A3_SocialNetwork.Controllers
             return NoContent();
         }
 
+
+        struct VisitedFeed
+        {
+            public Users user;
+            public List<Posts> userposts;
+            public List<Circles> circles;
+            public List<Posts> circleposts;
+        }
+
         //Get where you visit someone else
         //Own id first, visit id second
         [HttpGet("{ownid:length(24)}/{visitid:length(24)}", Name = "GetUserVisit")]
-        public ActionResult<Users> Get(string ownid, string visitid)
+        public ActionResult<object> Get(string ownid, string visitid)
         {
             var own = _databaseServices.GetUsers(ownid);
             var visit = _databaseServices.GetUsers(visitid);
@@ -125,7 +144,38 @@ namespace DAB_A3_SocialNetwork.Controllers
                 return NotFound();
             }
 
-            return visit;
+            var posts = _databaseServices.GetMyPosts(visitid);                          //Finder post skrevet af denne user
+
+            var comcircles = new List<Circles>();
+            var owncircles = _databaseServices.GetCircleUserIsIn(ownid);            //Finder de circles user er med i
+            var visitcircles = _databaseServices.GetCircleUserIsIn(visitid);        //Finder de circles som visited user er i
+            foreach (var ownc in owncircles)
+            {
+                foreach (var visc in visitcircles)
+                {
+                    if (ownc.Id == visc.Id)
+                        comcircles.Add(visc);                                                   //Laver en ny liste over alle de circles som er fælles
+                }
+            }
+
+            var circleposts = new List<Posts>();                                                //Finder de posts som er skrevet i de fællescircles begge users er med i
+            foreach (var circle in comcircles)
+            {
+                var tempId = circle.Id;
+                var tempcircleposts = _databaseServices.GetCirclePosts(tempId);
+                foreach (var p in tempcircleposts)
+                {
+                    circleposts.Add(p);
+                }
+            }
+
+            VisitedFeed visitedFeed = new VisitedFeed();                                     //Struct som indeholder alt information som vises på siden.
+            visitedFeed.user = visit;
+            visitedFeed.userposts = posts;
+            visitedFeed.circles = comcircles;
+            visitedFeed.circleposts = circleposts;
+
+            return visitedFeed;
         }
 
     }

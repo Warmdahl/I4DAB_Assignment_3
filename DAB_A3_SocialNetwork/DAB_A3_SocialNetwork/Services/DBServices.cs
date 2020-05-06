@@ -14,6 +14,7 @@ namespace DAB_A3_SocialNetwork.Services
         private readonly IMongoCollection<Circles> _circles;
         private readonly IMongoCollection<Followlist> _followlist;
         private readonly IMongoCollection<Blacklist> _blacklist;
+        private readonly IMongoCollection<Comments> _comments;
 
         public DatabaseServices(ISocialNetworkDBSettings settings)
         {
@@ -25,6 +26,7 @@ namespace DAB_A3_SocialNetwork.Services
             _circles = database.GetCollection<Circles>(settings.CirclesCollectionName);
             _followlist = database.GetCollection<Followlist>(settings.FollowlistCollectionName);        
             _blacklist = database.GetCollection<Blacklist>(settings.BlacklistCollectionName);
+            _comments = database.GetCollection<Comments>(settings.CommentsCollectionName);
         }
 
 
@@ -48,6 +50,8 @@ namespace DAB_A3_SocialNetwork.Services
         public List<Posts> GetPosts() => _posts.Find(posts => true).ToList();
 
         public List<Posts> GetMyPosts(string id) => _posts.Find(posts => posts.Poster_Id == id).ToList();
+
+        public List<Posts> GetPostbyPostid(string id) => _posts.Find(posts => posts.Id == id).ToList();
 
         public List<Posts> GetCirclePosts(string id) => _posts.Find(posts => posts.Circle_Id == id).ToList();
 
@@ -74,6 +78,8 @@ namespace DAB_A3_SocialNetwork.Services
             return circle;
         }
 
+        public void DeleteCircle(Circles circle) => _circles.DeleteOne(circles => circles.Id == circle.Id);
+
         public void UpdateCircle(string id, Circles circle) => _circles.ReplaceOne(circle => circle.Id == id, circle);
 
         //Functions for Followlist
@@ -93,6 +99,15 @@ namespace DAB_A3_SocialNetwork.Services
         {
             _blacklist.InsertOne(blacklist);
             return blacklist;
+        }
+
+        //Functions for Comments
+        public Comments GetComments(string id) => _comments.Find<Comments>(comment => comment.PostId == id).FirstOrDefault();
+
+        public Comments CreateComments(Comments comment)
+        {
+            _comments.InsertOne(comment);
+            return comment;
         }
 
     }

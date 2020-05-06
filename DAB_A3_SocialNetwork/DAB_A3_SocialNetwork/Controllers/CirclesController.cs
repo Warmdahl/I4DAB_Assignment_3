@@ -57,5 +57,21 @@ namespace DAB_A3_SocialNetwork.Controllers
 
             return circlefeed;
         }
+
+        ////Update a user
+        //[HttpPut("{id:length(24)}")]
+        //public IActionResult Update(string id, Users newuser)
+        //{
+        //    var olduser = _databaseServices.GetUsers(id);
+
+        //    if (olduser == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    _databaseServices.UpdateUser(id, newuser);
+
+        //    return NoContent();
+        //}
     }
 }
