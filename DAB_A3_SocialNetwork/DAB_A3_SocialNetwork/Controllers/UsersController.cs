@@ -255,6 +255,10 @@ namespace DAB_A3_SocialNetwork.Controllers
             c3.UserIds.Add(users[0].Id);
             c3.UserIds.Add(users[2].Id);
             c3.UserIds.Add(users[4].Id);
+
+            _databaseServices.CreateCircle(c1);
+            _databaseServices.CreateCircle(c2);
+            _databaseServices.CreateCircle(c3);
         }
 
         public void SeedingPosts()
@@ -310,6 +314,14 @@ namespace DAB_A3_SocialNetwork.Controllers
             p7.Image = "";
             p7.text = "My gun is golden";
             p7.Circle_Id = circles[1].Id;
+
+            _databaseServices.CreatePost(p1);
+            _databaseServices.CreatePost(p2);
+            _databaseServices.CreatePost(p3);
+            _databaseServices.CreatePost(p4);
+            _databaseServices.CreatePost(p5);
+            _databaseServices.CreatePost(p6);
+            _databaseServices.CreatePost(p7);
         }
 
         public void SeedingFollowlist()
@@ -352,6 +364,12 @@ namespace DAB_A3_SocialNetwork.Controllers
             f5.followingIDs.Add(users[2].Id);
             f5.followingIDs.Add(users[3].Id);
             f5.followingIDs.Add(users[4].Id);
+
+            _databaseServices.CreateFollowlist(f1);
+            _databaseServices.CreateFollowlist(f2);
+            _databaseServices.CreateFollowlist(f3);
+            _databaseServices.CreateFollowlist(f4);
+            _databaseServices.CreateFollowlist(f5);
         }
 
         public void SeedingComment()
