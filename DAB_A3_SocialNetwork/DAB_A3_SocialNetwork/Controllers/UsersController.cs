@@ -255,7 +255,44 @@ namespace DAB_A3_SocialNetwork.Controllers
 
         public void SeedingFollowlist()
         {
+            var users = _databaseServices.GetUsers();
 
+            Followlist f1 = new Followlist();
+            f1.FLOwnerID = users[1].Id;
+
+            f1.followingIDs.Add(users[2].Id);
+            f1.followingIDs.Add(users[3].Id); 
+            f1.followingIDs.Add(users[5].Id);
+
+            Followlist f2 = new Followlist();
+            f1.FLOwnerID = users[2].Id;
+
+            f2.followingIDs.Add(users[1].Id);
+            f2.followingIDs.Add(users[2].Id);
+            f2.followingIDs.Add(users[4].Id);
+
+
+            Followlist f3 = new Followlist();
+            f3.FLOwnerID = users[3].Id;
+
+            f3.followingIDs.Add(users[2].Id);
+            f3.followingIDs.Add(users[3].Id);
+            f3.followingIDs.Add(users[4].Id);
+
+
+            Followlist f4 = new Followlist();
+            f4.FLOwnerID = users[4].Id;
+
+            f3.followingIDs.Add(users[4].Id);
+            f3.followingIDs.Add(users[5].Id);
+            f3.followingIDs.Add(users[1].Id);
+
+            Followlist f5 = new Followlist();
+            f4.FLOwnerID = users[5].Id;
+
+            f5.followingIDs.Add(users[2].Id);
+            f5.followingIDs.Add(users[3].Id);
+            f5.followingIDs.Add(users[4].Id);
         }
 
         public void SeedingComment()
