@@ -210,7 +210,7 @@ namespace DAB_A3_SocialNetwork.Controllers
         }
 
 
-        public object SeedingUsers()
+        public void SeedingUsers()
         {
             //A bunch of users
             Users u1 = new Users();
@@ -238,9 +238,6 @@ namespace DAB_A3_SocialNetwork.Controllers
             _databaseServices.CreateUser(u3);
             _databaseServices.CreateUser(u4);
             _databaseServices.CreateUser(u5);
-
-
-            return CreatedAtRoute("GetUser", new { id = u1.Id.ToString() }, u1);
         }
 
         public void SeedingCircles()
