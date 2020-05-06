@@ -278,11 +278,38 @@ namespace DAB_A3_SocialNetwork.Controllers
 
             Posts p3 = new Posts();
             p3.ispublic = true;
-            p3.Poster_Id = users[0].Id;
+            p3.Poster_Id = users[1].Id;
             p3.Image = "";
             p3.text = "Hej med dig din stej";
             p3.Circle_Id = circles[1].Id;
 
+            Posts p4 = new Posts();
+            p4.ispublic = true;
+            p4.Poster_Id = users[0].Id;
+            p4.Image = "";
+            p4.text = "Hansen er ikke en del af MIB";
+            p4.Circle_Id = circles[2].Id;
+
+            Posts p5 = new Posts();
+            p5.ispublic = false;
+            p5.Poster_Id = users[4].Id;
+            p5.Image = "";
+            p5.text = "Jeg vil gerne sige hej";
+            p5.Circle_Id = null;
+
+            Posts p6 = new Posts();
+            p6.ispublic = false;
+            p6.Poster_Id = users[1].Id;
+            p6.Image = "";
+            p6.text = "nononoononoon!";
+            p6.Circle_Id = circles[0].Id;
+
+            Posts p7 = new Posts();
+            p7.ispublic = true;
+            p7.Poster_Id = users[2].Id;
+            p7.Image = "";
+            p7.text = "My gun is golden";
+            p7.Circle_Id = circles[1].Id;
         }
 
         public void SeedingFollowlist()
@@ -315,12 +342,12 @@ namespace DAB_A3_SocialNetwork.Controllers
             Followlist f4 = new Followlist();
             f4.FLOwnerID = users[4].Id;
 
-            f3.followingIDs.Add(users[4].Id);
-            f3.followingIDs.Add(users[5].Id);
-            f3.followingIDs.Add(users[1].Id);
+            f4.followingIDs.Add(users[4].Id);
+            f4.followingIDs.Add(users[5].Id);
+            f4.followingIDs.Add(users[1].Id);
 
             Followlist f5 = new Followlist();
-            f4.FLOwnerID = users[5].Id;
+            f5.FLOwnerID = users[5].Id;
 
             f5.followingIDs.Add(users[2].Id);
             f5.followingIDs.Add(users[3].Id);
