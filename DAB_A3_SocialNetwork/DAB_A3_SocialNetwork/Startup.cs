@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using DAB_A3_SocialNetwork
+using DAB_A3_SocialNetwork.Controllers;
 
 namespace DAB_A3_SocialNetwork
 {
@@ -21,6 +23,8 @@ namespace DAB_A3_SocialNetwork
     {
         public Startup(IConfiguration configuration)
         {
+            seedData.SeedingUsers();
+
             Configuration = configuration;
         }
 
@@ -39,6 +43,9 @@ namespace DAB_A3_SocialNetwork
             services.AddSingleton<DatabaseServices>();
 
             services.AddControllers().AddNewtonsoftJson(options => options.UseMemberCasing());
+
+           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +59,12 @@ namespace DAB_A3_SocialNetwork
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            seedData.SeedingUsers();
+            seedData.SeedingCircles();
+            seedData.SeedingPosts();
+            seedData.SeedingFollowlist();
+            seedData.SeedingComment();
 
             app.UseAuthorization();
 

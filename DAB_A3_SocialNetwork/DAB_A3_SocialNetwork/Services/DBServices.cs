@@ -28,7 +28,7 @@ namespace DAB_A3_SocialNetwork.Services
             _blacklist = database.GetCollection<Blacklist>(settings.BlacklistCollectionName);
             _comments = database.GetCollection<Comments>(settings.CommentsCollectionName);
         }
-
+        
 
         //Functions for users
         public List<Users> GetUsers() => _users.Find(users => true).ToList();
