@@ -336,27 +336,27 @@ namespace DAB_A3_SocialNetwork.Controllers
             Comments c1 = new Comments();
             c1.PostId = post[0].Id;
             c1.text = "Hey there boi";
-            c1.commenterId = users[0].Id;
+            c1.commenterId = users[1].Id;
 
             Comments c2 = new Comments();
             c1.PostId = post[0].Id;
             c1.text = "How's it hanging";
-            c1.commenterId = users[1].Id;
+            c1.commenterId = users[0].Id;
 
             Comments c3 = new Comments();
             c1.PostId = post[0].Id;
             c1.text = "We are runing out of time :(";
-            c1.commenterId = users[0].Id;
+            c1.commenterId = users[1].Id;
 
             Comments c4 = new Comments();
-            c1.PostId = post[0].Id;
-            c1.text = "Hey there boi";
-            c1.commenterId = users[3].Id;
+            c1.PostId = post[2].Id;
+            c1.text = "Så kan vi være det sammen";
+            c1.commenterId = users[1].Id;
 
             Comments c5 = new Comments();
             c1.PostId = post[3].Id;
-            c1.text = "Hey there boi";
-            c1.commenterId = users[3].Id;
+            c1.text = "Nice XD";
+            c1.commenterId = users[2].Id;
 
             _databaseServices.CreateComments(c1);
             _databaseServices.CreateComments(c2);
