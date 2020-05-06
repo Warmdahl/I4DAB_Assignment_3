@@ -259,6 +259,7 @@ namespace DAB_A3_SocialNetwork.Controllers
             c3.UserIds.Add(users[2].Id);
             c3.UserIds.Add(users[4].Id);
 
+            
             _databaseServices.CreateCircle(c1);
             _databaseServices.CreateCircle(c2);
             _databaseServices.CreateCircle(c3);
