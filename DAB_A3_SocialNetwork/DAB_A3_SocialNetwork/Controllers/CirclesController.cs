@@ -33,7 +33,7 @@ namespace DAB_A3_SocialNetwork.Controllers
             return CreatedAtRoute("GetCircle", new { id = circle.Id.ToString() },circle);
         }
 
-        struct Circleposts
+        public struct Circleposts
         {
             public Circles circle;
             public List<Posts> circleposts;
