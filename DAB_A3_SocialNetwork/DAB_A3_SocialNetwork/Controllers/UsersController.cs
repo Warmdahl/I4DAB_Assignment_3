@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DAB_A3_SocialNetwork.Models;
-using DAB_A3_SocialNetwork.SeedData;
 using DAB_A3_SocialNetwork.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +39,10 @@ namespace DAB_A3_SocialNetwork.Controllers
             if (users == null) //Seeder data til database
             {
                 SeedingUsers();
+                SeedingCircles();
+                SeedingPosts();
+                SeedingFollowlist();
+                SeedingComment();
             }
 
             return users;
