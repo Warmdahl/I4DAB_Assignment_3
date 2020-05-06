@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DAB_A3_SocialNetwork.Models;
-using DAB_A3_SocialNetwork.SeedData;
 using DAB_A3_SocialNetwork.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -418,6 +417,8 @@ namespace DAB_A3_SocialNetwork.Controllers
             _databaseServices.CreateComments(c3);
             _databaseServices.CreateComments(c4);
             _databaseServices.CreateComments(c5);
+            _databaseServices.CreateComments(c6);
+            _databaseServices.CreateComments(c7);
         }
 
     }
