@@ -241,15 +241,47 @@ namespace DAB_A3_SocialNetwork.Controllers
             c1.UserIds.Add(users[0].Id);
             c1.UserIds.Add(users[1].Id);
             c1.UserIds.Add(users[2].Id);
+
+            //A Bunch of circles
+            Circles c2 = new Circles();
+            c2.circleName = "HighfivesAreforpussies";
+            c2.UserIds.Add(users[2].Id);
+            c2.UserIds.Add(users[3].Id);
+            c2.UserIds.Add(users[4].Id);
+
+            //A Bunch of circles
+            Circles c3 = new Circles();
+            c3.circleName = "MenInBlackisthebestmovieEVER";
+            c3.UserIds.Add(users[0].Id);
+            c3.UserIds.Add(users[2].Id);
+            c3.UserIds.Add(users[4].Id);
         }
 
         public void SeedingPosts()
         {
             var users = _databaseServices.GetUsers();
+            var circles = _databaseServices.GetCircles();
 
             Posts p1 = new Posts();
             p1.ispublic = true;
             p1.Poster_Id = users[0].Id;
+            p1.Image = "";
+            p1.text = "Hej med dig din stej";
+            p1.Circle_Id = circles[0].Id;
+
+            Posts p2 = new Posts();
+            p2.ispublic = true;
+            p2.Poster_Id = users[2].Id;
+            p2.Image = "";
+            p2.text = "Frands er høj";
+            p2.Circle_Id = circles[2].Id;
+
+            Posts p3 = new Posts();
+            p3.ispublic = true;
+            p3.Poster_Id = users[0].Id;
+            p3.Image = "";
+            p3.text = "Hej med dig din stej";
+            p3.Circle_Id = circles[1].Id;
 
         }
 
