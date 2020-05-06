@@ -39,6 +39,10 @@ namespace DAB_A3_SocialNetwork.Controllers
             if (users == null) //Seeder data til database
             {
                 SeedingUsers();
+                SeedingCircles();
+                SeedingPosts();
+                SeedingFollowlist();
+                SeedingComment();
             }
 
             return users;
