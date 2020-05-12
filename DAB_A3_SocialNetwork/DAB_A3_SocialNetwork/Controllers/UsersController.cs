@@ -36,9 +36,13 @@ namespace DAB_A3_SocialNetwork.Controllers
         {
             var users =_databaseServices.GetUsers();
 
-            if (users == null) //Seeder data til database
+            if (users.Count == 0) //Seeder data til database
             {
-                TherulingSeed();
+                SeedingUsers();
+                SeedingCircles();
+                SeedingPosts();
+                SeedingFollowlist();
+                SeedingComment();
             }
 
             return users;
@@ -50,9 +54,11 @@ namespace DAB_A3_SocialNetwork.Controllers
         public ActionResult<object> Get(string id)
         {
             var user = _databaseServices.GetUsers(id);                          //Finder user information
-            var posts = _databaseServices.GetMyPosts(id);                  //Finder post skrevet af denne user
-            
+
             var circles = _databaseServices.GetCircleUserIsIn(id);        //Finder de circles user er med i
+
+            var posts = _databaseServices.GetMyPosts(id);                  //Finder post skrevet af denne user
+
             var circleposts = new List<Posts>();                                    //Finder de posts som er skrevet i de circles user er med i
             foreach (var circle in circles)
             {
@@ -65,7 +71,14 @@ namespace DAB_A3_SocialNetwork.Controllers
             }
 
             var followlist = _databaseServices.GetUserFollowlists(id);              //Finder alle posts lavede af users som user følger
+
             List<Posts> FLposts = new List<Posts>();
+
+            if (FLposts.Count == 0)
+            {
+                NotFound();
+            }
+
             foreach (var FLids in followlist.followingIDs)
             {
                 var ID = FLids;                                               //Laver en liste med alle posts fra alle på followlisten
@@ -197,19 +210,7 @@ namespace DAB_A3_SocialNetwork.Controllers
             return visitedFeed;
         }
 
-
-
-        //One seed to rule them all
-        public void TherulingSeed()
-        {
-            SeedingUsers();
-            SeedingCircles();
-            SeedingPosts();
-            SeedingFollowlist();
-            SeedingComment();
-        }
-
-
+        //Seeding data for database
         public void SeedingUsers()
         {
             //A bunch of users
@@ -245,27 +246,24 @@ namespace DAB_A3_SocialNetwork.Controllers
             var users = _databaseServices.GetUsers();
 
             //A Bunch of circles
-            Circles c1 = new Circles();
-            c1.circleName = "Thebois";
-            c1.UserIds.Add(users[0].Id);
-            c1.UserIds.Add(users[1].Id);
-            c1.UserIds.Add(users[2].Id);
+            Circles c1 = new Circles
+            {
+                circleName = "Thebois",
+                UserIds = new List<string> {users[0].Id, users[1].Id, users[2].Id}
+            };
 
-            //A Bunch of circles
-            Circles c2 = new Circles();
-            c2.circleName = "HighfivesAreforpussies";
-            c2.UserIds.Add(users[2].Id);
-            c2.UserIds.Add(users[3].Id);
-            c2.UserIds.Add(users[4].Id);
+            Circles c2 = new Circles
+            {
+                circleName = "HighfivesAreforpussies",
+                UserIds = new List<string> {users[2].Id, users[3].Id, users[4].Id}
+            };
 
-            //A Bunch of circles
-            Circles c3 = new Circles();
-            c3.circleName = "MenInBlackisthebestmovieEVER";
-            c3.UserIds.Add(users[0].Id);
-            c3.UserIds.Add(users[2].Id);
-            c3.UserIds.Add(users[4].Id);
+            Circles c3 = new Circles
+            {
+                circleName = "MenInBlackisthebestmovieEVER",
+                UserIds = new List<string> { users[0].Id, users[2].Id, users[4].Id }
+            };
 
-            
             _databaseServices.CreateCircle(c1);
             _databaseServices.CreateCircle(c2);
             _databaseServices.CreateCircle(c3);
@@ -340,42 +338,35 @@ namespace DAB_A3_SocialNetwork.Controllers
         {
             var users = _databaseServices.GetUsers();
 
-            Followlist f1 = new Followlist();
-            f1.FLOwnerID = users[1].Id;
+            Followlist f1 = new Followlist
+            {
+                FLOwnerID = users[0].Id,
+                followingIDs = new List<string> {users[2].Id, users[3].Id, users[1].Id}
+            };
 
-            f1.followingIDs.Add(users[2].Id);
-            f1.followingIDs.Add(users[3].Id); 
-            f1.followingIDs.Add(users[5].Id);
+            Followlist f2 = new Followlist
+            {
+                FLOwnerID = users[2].Id,
+                followingIDs = new List<string> { users[1].Id, users[2].Id, users[4].Id }
+            };
 
-            Followlist f2 = new Followlist();
-            f1.FLOwnerID = users[2].Id;
+            Followlist f3 = new Followlist
+            {
+                FLOwnerID = users[3].Id,
+                followingIDs = new List<string> { users[2].Id, users[1].Id, users[4].Id }
+            };
 
-            f2.followingIDs.Add(users[1].Id);
-            f2.followingIDs.Add(users[2].Id);
-            f2.followingIDs.Add(users[4].Id);
+            Followlist f4 = new Followlist
+            {
+                FLOwnerID = users[4].Id,
+                followingIDs = new List<string> { users[0].Id, users[1].Id, users[2].Id }
+            };
 
-
-            Followlist f3 = new Followlist();
-            f3.FLOwnerID = users[3].Id;
-
-            f3.followingIDs.Add(users[2].Id);
-            f3.followingIDs.Add(users[3].Id);
-            f3.followingIDs.Add(users[4].Id);
-
-
-            Followlist f4 = new Followlist();
-            f4.FLOwnerID = users[4].Id;
-
-            f4.followingIDs.Add(users[4].Id);
-            f4.followingIDs.Add(users[5].Id);
-            f4.followingIDs.Add(users[1].Id);
-
-            Followlist f5 = new Followlist();
-            f5.FLOwnerID = users[5].Id;
-
-            f5.followingIDs.Add(users[2].Id);
-            f5.followingIDs.Add(users[3].Id);
-            f5.followingIDs.Add(users[4].Id);
+            Followlist f5 = new Followlist
+            {
+                FLOwnerID = users[1].Id,
+                followingIDs = new List<string> { users[2].Id, users[3].Id, users[4].Id }
+            };
 
             _databaseServices.CreateFollowlist(f1);
             _databaseServices.CreateFollowlist(f2);
@@ -396,24 +387,24 @@ namespace DAB_A3_SocialNetwork.Controllers
             c1.commenterId = users[1].Id;
 
             Comments c2 = new Comments();
-            c1.PostId = post[0].Id;
-            c1.text = "How's it hanging";
-            c1.commenterId = users[0].Id;
+            c2.PostId = post[0].Id;
+            c2.text = "How's it hanging";
+            c2.commenterId = users[0].Id;
 
             Comments c3 = new Comments();
-            c1.PostId = post[0].Id;
-            c1.text = "We are runing out of time :(";
-            c1.commenterId = users[1].Id;
+            c3.PostId = post[0].Id;
+            c3.text = "We are runing out of time :(";
+            c3.commenterId = users[1].Id;
 
             Comments c4 = new Comments();
-            c1.PostId = post[2].Id;
-            c1.text = "Så kan vi være det sammen";
-            c1.commenterId = users[1].Id;
+            c4.PostId = post[2].Id;
+            c4.text = "Så kan vi være det sammen";
+            c4.commenterId = users[1].Id;
 
             Comments c5 = new Comments();
-            c1.PostId = post[3].Id;
-            c1.text = "Nice XD";
-            c1.commenterId = users[2].Id;
+            c5.PostId = post[3].Id;
+            c5.text = "Nice XD";
+            c5.commenterId = users[2].Id;
 
             _databaseServices.CreateComments(c1);
             _databaseServices.CreateComments(c2);
