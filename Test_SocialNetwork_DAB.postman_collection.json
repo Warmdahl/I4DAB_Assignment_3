@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "f196e800-5dad-406e-a851-4b24ee5cb665",
+		"name": "Test_SocialNetwork_DAB",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test_get_func_Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44388/api/Users",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44388",
+					"path": [
+						"api",
+						"Users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_User_With_Feed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44388/api/Users/5eba6f1b7c2cc92f6ce62470",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44388",
+					"path": [
+						"api",
+						"Users",
+						"5eba6f1b7c2cc92f6ce62470"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_User_visit_User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44388/api/Users/5eba6f1b7c2cc92f6ce62470/5eba6f1c7c2cc92f6ce62471",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44388",
+					"path": [
+						"api",
+						"Users",
+						"5eba6f1b7c2cc92f6ce62470",
+						"5eba6f1c7c2cc92f6ce62471"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Post_Comments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44388/api/Comment/5eba6f1c7c2cc92f6ce62478",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44388",
+					"path": [
+						"api",
+						"Comment",
+						"5eba6f1c7c2cc92f6ce62478"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post_Create_Post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ispublic\"\t: \"true\",\n\t\"Circle_Id\" : \"5eb19f9315b7492cf4ef4cb3\",\n\t\"Poster_Id\" : \"5eb162f54c9e7257443dc094\", \n\t\"Text\"\t\t: \"My gun is made of silver you smuck\",\n\t\"Image\" \t: \"null\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44388/api/posts",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44388",
+					"path": [
+						"api",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post_Create_Comment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"PostId\" : \"5eb174943bf78d2074a1b7c7\",\n\t\"text\" : \"But Johnny you are over there!\",\n\t\"commenterId\" : \"5eb162f54c9e7257443dc094\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44388/api/Comment",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44388",
+					"path": [
+						"api",
+						"Comment"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
