@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using DAB_A3_SocialNetwork;
 using DAB_A3_SocialNetwork.Controllers;
+using Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore;
 
 namespace DAB_A3_SocialNetwork
 {

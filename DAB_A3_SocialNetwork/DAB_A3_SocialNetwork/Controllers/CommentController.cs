@@ -24,7 +24,7 @@ namespace DAB_A3_SocialNetwork.Controllers
         struct commentfeed
         {
             public List<Posts> orgpost;
-            public Comments comments;
+            public List<Comments> comments;
         }
 
         //Show all the comments to a specific post (enter post id)
@@ -32,14 +32,19 @@ namespace DAB_A3_SocialNetwork.Controllers
         public ActionResult<object> Get(string id)
         {
             var orgpost = _databaseServices.GetPostbyPostid(id);
+
+            if (orgpost == null)
+            {
+                return NotFound();
+            }
+
             var comments = _databaseServices.GetComments(id);
-    
+
             commentfeed feed = new commentfeed();
             feed.orgpost = orgpost;
             feed.comments = comments;
             return feed;
         }
-
 
         //Creates a new comment
         [HttpPost]

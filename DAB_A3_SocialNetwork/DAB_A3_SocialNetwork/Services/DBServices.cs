@@ -102,16 +102,14 @@ namespace DAB_A3_SocialNetwork.Services
         }
 
         //Functions for Comments
-        public Comments GetComments(string id) => _comments.Find<Comments>(comment => comment.PostId == id).FirstOrDefault();
+        public Comments GetComment(string id) => _comments.Find<Comments>(comment => comment.PostId == id).FirstOrDefault();
+
+        public List<Comments> GetComments(string id) => _comments.Find(comment => comment.PostId == id).ToList();
 
         public Comments CreateComments(Comments comment)
         {
             _comments.InsertOne(comment);
             return comment;
         }
-
-
-
-        //Seed data for database:
     }
 }
