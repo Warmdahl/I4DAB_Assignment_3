@@ -406,11 +406,23 @@ namespace DAB_A3_SocialNetwork.Controllers
             c5.text = "Nice XD";
             c5.commenterId = users[2].Id;
 
+            Comments c6 = new Comments();
+            c1.PostId = post[6].Id;
+            c1.text = "Det håber jeg ikke :P";
+            c1.commenterId = users[4].Id;
+
+            Comments c7 = new Comments();
+            c1.PostId = post[4].Id;
+            c1.text = "Er du nu sikker på det, det kunne jo være noget godt, som du siger nej til :)";
+            c1.commenterId = users[2].Id;
+
             _databaseServices.CreateComments(c1);
             _databaseServices.CreateComments(c2);
             _databaseServices.CreateComments(c3);
             _databaseServices.CreateComments(c4);
             _databaseServices.CreateComments(c5);
+            _databaseServices.CreateComments(c6);
+            _databaseServices.CreateComments(c7);
         }
 
     }
